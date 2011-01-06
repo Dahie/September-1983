@@ -40,16 +40,16 @@ namespace XnaGameClient
 		{
             serverThread = new Thread(new ThreadStart(ProgramServer.Start));
             
-			client.DiscoverLocalPeers(14242);
+			//client.DiscoverLocalPeers(14242);
             Console.WriteLine("Connections: "+client.ConnectionsCount);
 
             // if service discovery finds a server use it
             // otherwise create your own server and host
-            if(client.ConnectionsCount < 1) {
+            //(client.ConnectionsCount < 1) {
                 Console.WriteLine("Start Server");
-                //serverThread.Start();
-                //client.DiscoverLocalPeers(14242);
-            }
+                serverThread.Start();
+                client.DiscoverLocalPeers(14242);
+            //}
 
 			base.Initialize();
 		}
