@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 
-namespace September1983
+namespace Sept1983Client
 {
     /// <summary>
     /// This is the main type for your game
@@ -20,9 +20,6 @@ namespace September1983
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-
-        Player playerOne;
-        Player playerTwo;
 
         public Game1()
         {
