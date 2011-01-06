@@ -1,6 +1,6 @@
 using System;
 
-namespace September1983
+namespace Sept1983Server
 {
     static class Program
     {
@@ -9,7 +9,7 @@ namespace September1983
         /// </summary>
         static void Main(string[] args)
         {
-            using (Game1 game = new Game1())
+            using (GameServer game = new GameServer())
             {
                 game.Run();
             }

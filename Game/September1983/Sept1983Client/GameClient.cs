@@ -11,20 +11,17 @@ using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 
-namespace September1983
+namespace Sept1983Client
 {
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    public class Game1 : Microsoft.Xna.Framework.Game
+    public class GameClient : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        Player playerOne;
-        Player playerTwo;
-
-        public Game1()
+        public GameClient()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";

@@ -9,7 +9,7 @@ namespace Sept1983Client
         /// </summary>
         static void Main(string[] args)
         {
-            using (Game1 game = new Game1())
+            using (GameClient game = new GameClient())
             {
                 game.Run();
             }

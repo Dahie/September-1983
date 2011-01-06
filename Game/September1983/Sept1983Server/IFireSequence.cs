@@ -5,9 +5,8 @@ using System.Text;
 
 namespace Sept1983Server
 {
-    class Player
+    interface IFireSequence
     {
-        public String name;
-        public Map map;
+        void run(Map map);
     }
 }

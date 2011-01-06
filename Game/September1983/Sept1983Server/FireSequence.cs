@@ -5,13 +5,11 @@ using System.Text;
 
 namespace Sept1983Server
 {
-    class Field
+    class FireSequence : IFireSequence
     {
-        public Boolean ship = false;
-        public Boolean shot = false;
-
-        public Field()
+        public void run(Map map)
         {
+            //TODO: Implementierung der Abschusssequenz
         }
     }
 }
