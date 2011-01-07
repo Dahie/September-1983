@@ -14,7 +14,7 @@ namespace Sept1983Server
          */
         public String LoadScript(String pathToScript)
         {
-            String msg; //Rückgabenachricht
+            String msg = "response"; //Rückgabenachricht
 
             //TODO: Script laden und interpretieren
 

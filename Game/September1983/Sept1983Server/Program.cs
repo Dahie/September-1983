@@ -9,10 +9,11 @@ namespace Sept1983Server
         /// </summary>
         static void Main(string[] args)
         {
-            using (GameServer game = new GameServer())
+            ProgramServer.Run();
+            /*using (ProgramServer game = new ProgramServer())
             {
                 game.Run();
-            }
+            }*/
         }
     }
 }

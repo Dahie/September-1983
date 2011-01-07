@@ -11,6 +11,8 @@ using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 
+using Lidgren.Network;
+
 namespace Sept1983Client
 {
     /// <summary>
@@ -21,10 +23,18 @@ namespace Sept1983Client
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        NetClient client; // Managing Communication with Server
+
         public GameClient()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            NetPeerConfiguration config = new NetPeerConfiguration("xnaapp");
+            config.EnableMessageType(NetIncomingMessageType.DiscoveryResponse);
+
+            client = new NetClient(config);
+            client.Start();
         }
 
         /// <summary>
@@ -35,6 +45,10 @@ namespace Sept1983Client
         /// </summary>
         protected override void Initialize()
         {
+            // initialization of network connection to server
+
+            client.DiscoverLocalPeers(14242);
+
             // TODO: Add your initialization logic here
 
             base.Initialize();
@@ -53,26 +67,46 @@ namespace Sept1983Client
         }
 
         /// <summary>
-        /// UnloadContent will be called once per game and is the place to unload
-        /// all content.
-        /// </summary>
-        protected override void UnloadContent()
-        {
-            // TODO: Unload any non ContentManager content here
-        }
-
-        /// <summary>
         /// Allows the game to run logic such as updating the world,
         /// checking for collisions, gathering input, and playing audio.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            KeyboardState keyState = Keyboard.GetState();
+
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
             // TODO: Add your update logic here
+            if (keyState.IsKeyDown(Keys.Up))
+                sendSequenceName("made up name");
+
+
+            // read messages from server
+
+            NetIncomingMessage msg;
+            while ((msg = client.ReadMessage()) != null)
+            {
+                switch (msg.MessageType)
+                {
+                    case NetIncomingMessageType.DiscoveryResponse:
+                        // just connect to first server discovered
+                        client.Connect(msg.SenderEndpoint);
+                        break;
+                    case NetIncomingMessageType.Data:
+                        // server sent a position update
+                        String responseString = msg.ReadString();
+                        
+                        // TODO write responseString to Console
+                        Console.WriteLine(responseString);
+
+                        break;
+                }
+            }
+
+
 
             base.Update(gameTime);
         }
@@ -88,6 +122,25 @@ namespace Sept1983Client
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);
+        }
+
+        protected override void OnExiting(object sender, EventArgs args)
+        {
+            client.Shutdown("bye");
+
+            base.OnExiting(sender, args);
+        }
+
+        public void sendSequenceName(String sequenceName) {
+            if (sequenceName != null && sequenceName.Length > 0)
+            {
+                //
+                // If there's input; send it to server
+                //
+                NetOutgoingMessage om = client.CreateMessage();
+                om.Write(sequenceName);
+                client.SendMessage(om, NetDeliveryMethod.Unreliable);
+            }
         }
     }
 }

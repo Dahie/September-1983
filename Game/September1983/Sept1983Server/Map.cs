@@ -11,8 +11,8 @@ namespace Sept1983Server
 
         public Map()
         {
-            foreach (Field field in fields)
-                field = new Field();
+            //foreach (Field field in fields)
+            //    field = new Field();
         }
 
         public Boolean addShip( int shipSize, int position, Boolean horizontal)
