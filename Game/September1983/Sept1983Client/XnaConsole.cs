@@ -10,11 +10,9 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
-using IronPython.Hosting;
-using IronPython.Runtime.Exceptions;
-using IronPython.Modules;
 
-namespace XnaConsoleCssExample
+
+namespace XnaConsole
 {
     public delegate void InputHandler(string str);
 

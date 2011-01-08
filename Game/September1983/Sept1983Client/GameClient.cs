@@ -12,6 +12,7 @@ using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 
 using Lidgren.Network;
+using XnaConsole;
 
 namespace Sept1983Client
 {
@@ -24,6 +25,7 @@ namespace Sept1983Client
         SpriteBatch spriteBatch;
 
         NetClient client; // Managing Communication with Server
+        CssInterpreter interpreter;
 
         public GameClient()
         {
@@ -46,7 +48,7 @@ namespace Sept1983Client
         protected override void Initialize()
         {
             // initialization of network connection to server
-
+            interpreter = new CssInterpreter(this, Content.Load<SpriteFont>("consolas"));
             client.DiscoverLocalPeers(14242);
 
             // TODO: Add your initialization logic here

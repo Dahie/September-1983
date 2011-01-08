@@ -56,6 +56,10 @@
     <XnaCompressContent>true</XnaCompressContent>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CSScriptLibrary.v1.1, Version=2.1.2.0, Culture=neutral">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\CSScriptLibrary.v1.1.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=3.1.0.0, Culture=neutral, PublicKeyToken=6d5c3888ef60e27d, processorArchitecture=x86">
       <Private>False</Private>
       <SpecificVersion>True</SpecificVersion>
@@ -83,9 +87,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CssInterpreter.cs" />
+    <Compile Include="IFireSequenceScript.cs" />
+    <Compile Include="KeyBindings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="GameClient.cs" />
+    <Compile Include="XnaConsole.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
