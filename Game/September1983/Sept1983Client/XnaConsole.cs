@@ -230,7 +230,7 @@ namespace XnaConsole
             bool shiftPressed = CurrentKeyState.IsKeyDown(Keys.LeftShift) || CurrentKeyState.IsKeyDown(Keys.RightShift);
             bool altPressed = CurrentKeyState.IsKeyDown(Keys.LeftAlt) || CurrentKeyState.IsKeyDown(Keys.RightAlt);
 
-            foreach (KeyBinding binding in KeyboardHelper.AmericanBindings)
+            foreach (KeyBinding binding in KeyboardHelper.GermanBindings)
                 if (KeyPressWithRepeat(binding.Key, elapsedTime))
                 {
                     if (!shiftPressed && !altPressed)
