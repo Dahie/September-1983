@@ -150,7 +150,6 @@ namespace Sept1983Server
 				// sleep to allow other processes to run smoothly
 				Thread.Sleep(1);
 			}
-
 		}
 	}
 }

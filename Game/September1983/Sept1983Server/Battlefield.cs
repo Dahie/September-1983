@@ -22,16 +22,16 @@ namespace Sept1983Server
         /// <summary>
         /// returns a processed with map of current player including and map of opponent with ship positions hidden
         /// </summary>
-        /// <param name="mapOfCurrentPlayer">map of current player</param>
-        /// <param name="mapOfOpponent">map of opponent</param>
+        /// <param name="currentPlayer">current player</param>
+        /// <param name="opponentPlayer">opponent player</param>
         /// <returns>processed string e.g. for console</returns>
-        public static String Draw(Map mapOfCurrentPlayer, Map mapOfOpponent)
+        public static String Draw(Player currentPlayer, Player opponentPlayer)
         {
-            int mapDim = mapOfOpponent.Dimension;
+            int mapDim = opponentPlayer.Dimension;
             String line = "\n";
 
             line += DrawHeader(mapDim);
-            line += drawResultRows(mapOfCurrentPlayer, mapOfOpponent);
+            line += drawResultRows(currentPlayer.map, opponentPlayer.map);
 
             line += "---+";
             for (int i = 0; i < mapDim; i++)
@@ -50,9 +50,9 @@ namespace Sept1983Server
         /// </summary>
         /// <param name="mapDim">edge length of map</param>
         /// <returns>processed string</returns>
-        private static String DrawHeader(int mapDim)
+        private static String DrawHeader(int mapDim, Player opponentPlayer)
         {
-            String oppWaters = "OPPONENTS WATERS";
+            String oppWaters = opponentPlayer.name.ToUpper() + "S WATERS";
             String yourWaters = "YOUR WATERS";
 
             String line = "____";
