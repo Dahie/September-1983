@@ -9,5 +9,11 @@ namespace Sept1983Server
     {
         public String name;
         public Map map;
+
+        public Player(String name, Map map)
+        {
+            this.name = name;
+            this.map = map;
+        }
     }
 }

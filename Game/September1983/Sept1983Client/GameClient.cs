@@ -54,6 +54,18 @@ namespace Sept1983Client
             // TODO: Add your initialization logic here
 
             base.Initialize();
+
+
+            /////////////////// TESTING PATRICK
+            int mapDimension = 16;
+            Map mapServer = Map.GenerateShipsOnMap(new Map(mapDimension));
+            Map mapHuman = Map.GenerateShipsOnMap(new Map(mapDimension));
+            Player playerServer = new Player("Server", mapServer);
+            Player playerHuman = new Player("Human", mapHuman);
+
+            interpreter.WriteLine(Battlefield.Draw(playerServer.map, playerHuman.map));
+
+            //////////////////////////ENDE PATRICK
         }
 
         /// <summary>
@@ -78,7 +90,7 @@ namespace Sept1983Client
             KeyboardState keyState = Keyboard.GetState();
 
             // Allows the game to exit
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (keyState.IsKeyDown(Keys.Escape))
                 this.Exit();
 
             // TODO: Add your update logic here
@@ -106,8 +118,6 @@ namespace Sept1983Client
                         break;
                 }
             }
-
-
 
             base.Update(gameTime);
         }

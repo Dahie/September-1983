@@ -7,16 +7,15 @@ namespace Sept1983Server
 {
     class Map
     {
-        protected static int size = 24;
-        protected Field[,] fields = new Field[size,size];
+        protected static int dimension;
+        protected Field[,] fields;
 
         // stores the string of successfully fired shots
         protected String results = "";
 
-        public Map()
+        public Map(int mapDimensions)
         {
-            //foreach (Field field in fields)
-            //    field = new Field();
+            fields = new Field[mapDimensions, mapDimensions]();
         }
 
         public Boolean addShip( int shipSize, int position, Boolean horizontal)
@@ -73,6 +72,14 @@ namespace Sept1983Server
 
         public void resetResults() {
             results = "";
+        }
+
+        public int Dimension
+        {
+            get
+            {
+                return dimension;
+            }
         }
     }
 }
