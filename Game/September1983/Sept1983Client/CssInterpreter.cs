@@ -94,9 +94,9 @@ namespace Sept1983Client
                     hostEnvironment.WriteLine(message);
                 }}
 
-                private static void run(string path)
+                private static void run(string fileName, string className)
                 {{
-                    hostEnvironment.LoadScript(path);
+                    hostEnvironment.LoadScript(fileName, className);
                 }}
 
                 public static void Evaluate(CssInterpreter callee)
@@ -110,15 +110,13 @@ namespace Sept1983Client
             script.Invoke("*.Evaluate", this); 
         }
 
-        public void LoadScript(string path) 
+        public void LoadScript(string fileName, string className) 
         {
-
-            var scriptAssembly = CSScript.Load(path);
+            var scriptAssembly = CSScript.Load("./Scripts/"+fileName);
             AsmHelper assemblyHelper = new AsmHelper(scriptAssembly);
 
-            var script = (IFireSquenceScript)assemblyHelper.CreateObject("Script");
+            var script = (Scripts.IFireSequenceScript)assemblyHelper.CreateObject(className);
             script.Launch();
-
         }
 
         public void WriteLine(string input)
