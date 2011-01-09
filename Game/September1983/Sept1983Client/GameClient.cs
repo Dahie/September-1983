@@ -50,10 +50,23 @@ namespace Sept1983Client
             // initialization of network connection to server
             interpreter = new CssInterpreter(this, Content.Load<SpriteFont>("consolas"));
             client.DiscoverLocalPeers(14242);
+            if (client.ConnectionsCount > 0)
+            {
+                WriteLog("Connection to missile launch system active.");
+            }
+            else 
+            {
+                WriteLog("Connection to missile launch system inactive.");
+            }
 
             // TODO: Add your initialization logic here
 
             base.Initialize();
+        }
+
+        public void WriteLog(String log)
+        {
+            interpreter.Execute("log(\""+log+"\");");
         }
 
         /// <summary>
@@ -101,7 +114,7 @@ namespace Sept1983Client
                         String responseString = msg.ReadString();
                         
                         // TODO write responseString to XNAConsole
-                        Console.WriteLine(responseString);
+                        interpreter.WriteLine(responseString);
 
                         break;
                 }

@@ -14,6 +14,10 @@ namespace Sept1983Server
         protected static int dimension;
         /// <summary>fields of map</summary>
         protected Field[,] fields;
+        /// <summary>max number of shots per shot sequence</summary>
+        public static int allowedShots = 5;
+        /// <summary>shots left in sequence</summary>
+        protected int allowedShotsLeft = allowedShots;
         /// <summary>stores the string of successfully fired shots</summary>
         protected String results = "";
 
@@ -38,34 +42,38 @@ namespace Sept1983Server
         /// <returns>true if hit</returns>
         public Boolean fireShot(int x, int y)
         {
-            var field = getField(x, y);
-            if (field.ship && field.shot)
+            if(allowedShotsLeft > 0) 
             {
-                // ship and already hit
-                results += "(" + x + "," + y + ") ship already hit";
-                return true;
-            }
-            else if (field.ship && !field.shot)
-            {
-                // ship and not yet hit
-                // hit it!
-                field.shot = true;
-                results += "(" + x + "," + y + ") ship hit";
-                return true;
-            }
-            else if (!field.ship && field.shot)
-            {
-                // water and already hit
-                results += "(" + x + "," + y + ") nothing hit";
-                return false;
-            }
-            else if (!field.ship && !field.shot)
-            {
-                // water and not yet hit!
-                // splash!
-                results += "(" + x + "," + y + ") water already hit";
-                return false;
-            }
+                var field = getField(x, y);
+                allowedShots--;
+                if(field.ship && field.shot) 
+                {
+                    // ship and already hit
+                    results += "(" + x + "," + y + ") ship already hit";
+                    return true;
+                } 
+                else if(field.ship && !field.shot) 
+                {
+                    // ship and not yet hit
+                    // hit it!
+                    field.shot = true;
+                    results += "(" + x + "," + y + ") ship hit";
+                    return true;
+                } 
+                else if(!field.ship && field.shot) 
+                {
+                    // water and already hit
+                    results += "(" + x + "," + y + ") nothing hit";
+                    return false;
+                }
+                else if (!field.ship && !field.shot)
+                {
+                    // water and not yet hit!
+                    // splash!
+                    results += "(" + x + "," + y + ") water already hit";
+                    return false;
+                }
+            }            
 
             return false;
         }
@@ -96,6 +104,7 @@ namespace Sept1983Server
         public void resetResults()
         {
             results = "";
+            allowedShotsLeft = allowedShots;
         }
 
         /// <summary>

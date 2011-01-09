@@ -15,6 +15,8 @@ namespace Sept1983Server
         /// <summary>player map</summary>
         public Map map;
 
+        // increments on every round
+        public int laps = 0;
         /// <summary>
         /// creates player instance  
         /// </summary>
