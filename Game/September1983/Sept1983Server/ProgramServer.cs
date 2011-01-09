@@ -9,7 +9,7 @@ namespace Sept1983Server
 	class ProgramServer
 	{
 
-        private static int RandomNumber(int min, int max)
+        public static int RandomNumber(int min, int max)
         {
             Random random = new Random();
             return random.Next(min, max);
@@ -25,6 +25,7 @@ namespace Sept1983Server
 
             ArrayList sequences = new ArrayList();
             sequences.Add("FireSequenceAlpha.cs");
+            sequences.Add("FireSequenceBeta.cs");
 
 			NetPeerConfiguration config = new NetPeerConfiguration("xnaapp");
 			config.EnableMessageType(NetIncomingMessageType.DiscoveryRequest);
