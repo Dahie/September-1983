@@ -10,6 +10,15 @@ namespace Sept1983Server
     /// </summary>
     class Battlefield
     {
+        /// <summary>character used to indicate empty water</summary>
+        public const String CHAR_WATER = " ";
+        /// <summary>character used to indicate a shot into water</summary>
+        public const String CHAR_WATER_SHOT = "O";
+        /// <summary>character used to indicate a ship field NOT shot</summary>
+        public const String CHAR_SHIP = "S";
+        /// <summary>character used to indicate a ship field that has been hit</summary>
+        public const String CHAR_SHIP_SHOT = "X";
+
         /// <summary>
         /// returns a processed with map of current player including and map of opponent with ship positions hidden
         /// </summary>
@@ -121,7 +130,7 @@ namespace Sept1983Server
                 line += y + "|";
                 for (int x = 0; x < mapDim; x++)
                     if (mapOfOpponent.getField(x, y).shot)
-                        line += (mapOfOpponent.getField(x, y).ship) ? " X" : " O";
+                        line += (mapOfOpponent.getField(x, y).ship) ? " " + CHAR_SHIP_SHOT : " " + CHAR_WATER_SHOT;
                     else
                         line += "  ";
                 line += " | ";
@@ -131,9 +140,9 @@ namespace Sept1983Server
                 for (int x = 0; x < mapDim; x++)
                 {
                     if (mapOfCurrentPlayer.getField(x, y).ship)
-                        line += (mapOfCurrentPlayer.getField(x, y).shot) ? " X" : " S";
+                        line += (mapOfCurrentPlayer.getField(x, y).shot) ? " " + CHAR_SHIP_SHOT : " " + CHAR_SHIP;
                     else
-                        line += (mapOfCurrentPlayer.getField(x, y).shot) ? " O" : "  ";
+                        line += (mapOfCurrentPlayer.getField(x, y).shot) ? " " + CHAR_WATER_SHOT : " " + CHAR_WATER;
                 }
                 line += " | \n";
             }
