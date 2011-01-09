@@ -84,6 +84,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CssInterpreter.cs" />
     <Compile Include="Field.cs" />
     <Compile Include="FireSequence.cs" />
     <Compile Include="IFireSequence.cs" />
@@ -92,6 +93,8 @@
     <Compile Include="ProgramServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Scripts\FireSequenceBeta.cs" />
+    <Compile Include="Scripts\FireSequenceAlpha.cs" />
     <Compile Include="SequenceExecuter.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Sept1983Server
 {
-    class FireSequenceAlpha : IFireSequence
+    class FireSequenceBeta : IFireSequence
     {
         public void run(Map map)
         {

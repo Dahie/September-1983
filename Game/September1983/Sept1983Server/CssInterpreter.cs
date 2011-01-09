@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 using CSScriptLibrary;
 using XnaConsole;
 
-namespace Sept1983Client
+namespace Sept1983Server
 {
     /// <remarks>
     /// This class implements a basic console interpreter using the C#-Scripting-Engine (Cs-Script)
