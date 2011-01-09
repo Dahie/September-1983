@@ -84,6 +84,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Battlefield.cs" />
     <Compile Include="Field.cs" />
     <Compile Include="FireSequence.cs" />
     <Compile Include="IFireSequence.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="SequenceExecuter.cs" />
+    <Compile Include="Ship.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
