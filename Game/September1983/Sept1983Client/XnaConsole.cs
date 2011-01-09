@@ -103,7 +103,7 @@ namespace XnaConsole
         #region Configuration constants
 
         const double AnimationTime = 0.2;
-        const int LinesDisplayed = 25;
+        const int LinesDisplayed = 35;
         const double CursorBlinkTime = 0.3;
         const string NewLine = "\n";
         const string Version = "Xna Console v.1.0";
@@ -160,6 +160,91 @@ namespace XnaConsole
             WriteLine("     <___/\\___.|  _/ |_| \\___.|_|_|_||___/\\___.|_|   |_| /_/ \\___/<___/");
             WriteLine("               |_|                                                     ");
             WriteLine("############################################################################");
+
+
+            ///////////////TESTING PATRICK
+
+            int mapSizeXY = 16;
+            String line;
+            String oppWaters = "OPPONENTS WATERS";
+            String yourWaters = "YOUR WATERS";
+
+            WriteLine("");
+            line = "____";
+            for (int i = 0; i < ((2 * mapSizeXY - oppWaters.Length) / 2); i++)
+                line += "_";
+            line += oppWaters;
+            for (int i = 0; i < ((2 * mapSizeXY - oppWaters.Length) / 2); i++)
+                line += "_";
+
+            line += "______";
+            for (int i = 0; i < ((2 * mapSizeXY - yourWaters.Length) / 2); i++)
+                line += "_";
+            line += yourWaters;
+            for (int i = 0; i < ((2 * mapSizeXY - yourWaters.Length) / 2); i++)
+                line += "_";
+            line += "__";
+            WriteLine(line);
+
+
+
+            for (int i = (int)Math.Floor(Math.Log10(mapSizeXY)); i >=0; i--)
+            {
+                line = "   |";
+                for (int j = 1; j <= mapSizeXY; j++)
+                {
+                    if (i < 1)
+                        line += " " + (int)(j - Math.Floor((double)(j / 10)) * 10);
+                    else
+                        line += (j < 10) ? "  " : " " + (int)Math.Floor((double)(j / 10));
+                }
+
+                line += " |   |";
+                for (int j = 1; j <= mapSizeXY; j++)
+                {
+                    if (i < 1)
+                        line += " " + (int)(j - Math.Floor((double)(j / 10)) * 10);
+                    else
+                        line += (j < 10) ? "  " : " " + (int)Math.Floor((double)(j / 10));
+                }
+
+                WriteLine(line + " | ");
+            }
+
+            line = "---+";
+            for (int i = 0; i < mapSizeXY; i++)
+                line += "--";
+            line += "-+---+";
+            for (int i = 0; i < mapSizeXY; i++)
+                line += "--";
+            WriteLine(line + "-+");
+
+            for (int y = 1; y <= mapSizeXY; y++)
+            {
+                line = " ";
+                line += (y < 10) ? " " : "";
+                line += y + "|";
+                for (int x = 1; x <= mapSizeXY; x++)
+                    line += " X";
+                line += " | ";
+                line += (y < 10) ? " " : "";
+                line += y + "|";
+                for (int x = 1; x <= mapSizeXY; x++)
+                    line += " O";
+                WriteLine(line + " | ");
+            }
+
+            line = "---+";
+            for (int i = 0; i < mapSizeXY; i++)
+                line += "--";
+            line += "-+---+";
+            for (int i = 0; i < mapSizeXY; i++)
+                line += "--";
+            WriteLine(line + "-+");
+
+            //////////////ENDE
+
+
 
             consoleXSize = Game.Window.ClientBounds.Right - Game.Window.ClientBounds.Left - 20;
             consoleYSize = font.LineSpacing * LinesDisplayed + 20;
