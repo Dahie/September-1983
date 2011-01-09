@@ -78,7 +78,7 @@ namespace Sept1983Client
             KeyboardState keyState = Keyboard.GetState();
 
             // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 this.Exit();
 
             // TODO: Add your update logic here

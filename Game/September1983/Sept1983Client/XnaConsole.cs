@@ -103,7 +103,7 @@ namespace XnaConsole
         #region Configuration constants
 
         const double AnimationTime = 0.2;
-        const int LinesDisplayed = 15;
+        const int LinesDisplayed = 25;
         const double CursorBlinkTime = 0.3;
         const string NewLine = "\n";
         const string Version = "Xna Console v.1.0";
@@ -154,14 +154,16 @@ namespace XnaConsole
 
             InputBuffer = "";
             history = new History();
-
-            WriteLine("###");
-            WriteLine("### " + Version);
-            WriteLine("###");
+            WriteLine("      ___             _               _               _  ___  ___  ____");
+            WriteLine("     / __> ___  ___ _| |_ ___ ._ _ _ | |_  ___  _ _  / || . |< . ><__ /");
+            WriteLine("     \\__ \\/ ._>| . \\ | | / ._>| ' ' || . \\/ ._>| '_> | |`_  // . \\ <_ \\");
+            WriteLine("     <___/\\___.|  _/ |_| \\___.|_|_|_||___/\\___.|_|   |_| /_/ \\___/<___/");
+            WriteLine("               |_|                                                     ");
+            WriteLine("############################################################################");
 
             consoleXSize = Game.Window.ClientBounds.Right - Game.Window.ClientBounds.Left - 20;
             consoleYSize = font.LineSpacing * LinesDisplayed + 20;
-            lineWidth = (int)(consoleXSize / font.MeasureString("a").X) - 2; //calculate number of letters that fit on a line, using "a" as example character
+            lineWidth = (int)(consoleXSize / font.MeasureString("a").X) - 3; //calculate number of letters that fit on a line, using "a" as example character
 
             State = ConsoleState.Closed;
             StateStartTime = 0;
@@ -532,7 +534,7 @@ namespace XnaConsole
                 consoleYOffset = (int)MathHelper.Lerp(startPosition, endPosition, (float)(now - StateStartTime) / (float)AnimationTime);
             }
             //calculate the number of letters that fit on a line
-            this.lineWidth = (int)(consoleXSize / font.MeasureString("a").X) - 2; //remeasure lineWidth, incase the screen size changes
+            this.lineWidth = (int)(consoleXSize / font.MeasureString("a").X) - 3; //remeasure lineWidth, incase the screen size changes
 
             #endregion
 

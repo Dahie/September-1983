@@ -46,7 +46,9 @@ namespace XnaConsole
             // TODO: Add your initialization logic here
 
             interp = new PythonInterpreter(this, Content.Load<SpriteFont>("ConsoleFont"));
-            interp.AddGlobal("game", this);
+
+            //Variable registrieren, um später auslesen zu können
+            //interp.AddGlobal("game", this);
 
             base.Initialize();
         }
@@ -80,7 +82,7 @@ namespace XnaConsole
         protected override void Update(GameTime gameTime)
         {
             // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 this.Exit();
 
             // TODO: Add your update logic here
