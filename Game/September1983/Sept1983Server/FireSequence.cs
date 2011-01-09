@@ -10,6 +10,9 @@ namespace Sept1983Server
         public void run(Map map)
         {
             //TODO: Implementierung der Abschusssequenz
+
+            map.fireShot(1, 1);
+
         }
     }
 }

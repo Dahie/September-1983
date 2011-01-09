@@ -117,7 +117,7 @@ namespace XnaGameClient
 				Thread.Sleep(1);
 			}
 
-			//server.Shutdown("app exiting");
+			server.Shutdown("app exiting");
 		}
 	}
 }
