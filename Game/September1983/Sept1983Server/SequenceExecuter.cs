@@ -31,7 +31,7 @@ namespace Sept1983Server
             return msg;
         }
 
-        public String ExecuteFiringSequence(FireSequence sequence) {
+        private String ExecuteFiringSequence(FireSequence sequence) {
             String msg = "Shots fired: ";
 
             sequence.run(map);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using System.Collections;
 
 using Lidgren.Network;
 
@@ -8,17 +9,22 @@ namespace Sept1983Server
 	class ProgramServer
 	{
 
-        Player playerOne;
-        Player playerTwo;
-
+        private static int RandomNumber(int min, int max)
+        {
+            Random random = new Random();
+            return random.Next(min, max);
+        }
 
 		public static void Run()
 		{
 
             // initialize
 
-            Player playerOne = new Player(); // non-player-character ie our server
+            Player playerOne = new Player("Player"); // non-player-character ie our server
             Player playerTwo; // player character
+
+            ArrayList sequences = new ArrayList();
+            sequences.Add("FireSequenceAlpha.cs");
 
 			NetPeerConfiguration config = new NetPeerConfiguration("xnaapp");
 			config.EnableMessageType(NetIncomingMessageType.DiscoveryRequest);
@@ -41,39 +47,30 @@ namespace Sept1983Server
 					switch (msg.MessageType)
 					{
 						case NetIncomingMessageType.DiscoveryRequest:
-							//
 							// Server received a discovery request from a client; send a discovery response (with no extra data attached)
-							//
 							server.SendDiscoveryResponse(null, msg.SenderEndpoint);
 							break;
 						case NetIncomingMessageType.VerboseDebugMessage:
 						case NetIncomingMessageType.DebugMessage:
 						case NetIncomingMessageType.WarningMessage:
 						case NetIncomingMessageType.ErrorMessage:
-							//
 							// Just print diagnostic messages to console
-							//
 							Console.WriteLine(msg.ReadString());
 							break;
 						case NetIncomingMessageType.StatusChanged:
 							NetConnectionStatus status = (NetConnectionStatus)msg.ReadByte();
 							if (status == NetConnectionStatus.Connected)
 							{
-								//
 								// A new player just connected!
-								//
 								Console.WriteLine(NetUtility.ToHexString(msg.SenderConnection.RemoteUniqueIdentifier) + " connected!");
 
                                 // create new player object
                                 // initialize new game
+                                playerTwo = new Player("Computer");
 
+                                playerOne.startGame();
+                                playerTwo.startGame();
 
-
-								// randomize his position and store in connection tag
-								/*msg.SenderConnection.Tag = new int[] {
-									NetRandom.Instance.Next(10, 100),
-									NetRandom.Instance.Next(10, 100)
-								};*/
 							}
 
 							break;
@@ -84,32 +81,32 @@ namespace Sept1983Server
 							// The client sent input to the server
 							
                             String sequenceName = msg.ReadString();
-							//int xinput = msg.ReadInt32();
-							//int yinput = msg.ReadInt32();
 
-                            // choose sequence
+                            // choose and fire sequence
 
-                            // fire sequence
+                            var executer = new SequenceExecuter(playerOne.map);
+                            var resultMessagePlayer = executer.LoadScript(sequenceName);
+
 
                             // switch round to npc
 
                             // fire random sequence
+                            int randomIndex = RandomNumber(0, sequences.Count);
+                            sequenceName = (String)sequences[randomIndex];
+                            executer = new SequenceExecuter(playerTwo.map);
+                            var resultMessageNPC = executer.LoadScript(sequenceName);
 
                             // send response to client
 
                             NetOutgoingMessage om = server.CreateMessage();
-                            var responseString = "Shots at B2, C3 and F4 successful.";
+                            var responseString = resultMessagePlayer + "\n\n Map \n\n" + resultMessageNPC;
                             om.Write(responseString);
                             // send to every player, which is only one in our case
-                            foreach (NetConnection player in server.Connections) {
+                            foreach (NetConnection player in server.Connections) 
+                            {
                                 server.SendMessage(om, player, NetDeliveryMethod.Unreliable);
                             }
 
-							/*int[] pos = msg.SenderConnection.Tag as int[];
-
-							// fancy movement logic goes here; we just append input to position
-							pos[0] += xinput;
-							pos[1] += yinput;*/
 							break;
 					}
 

@@ -7,8 +7,10 @@ namespace Sept1983Server
 {
     class Map
     {
-        protected static int size = 24;
-        protected Field[,] fields = new Field[size,size];
+        public static int Size = 24;
+        protected Field[,] fields = new Field[Size,Size];
+        public static int allowedShots = 5;
+        protected int allowedShotsLeft = allowedShots;
 
         // stores the string of successfully fired shots
         protected String results = "";
@@ -27,34 +29,39 @@ namespace Sept1983Server
 
         public Boolean fireShot(int x, int y)
         {
-            var field = getField(x, y);
-            if(field.ship && field.shot) 
+            if(allowedShotsLeft > 0) 
             {
-                // ship and already hit
-                results += "(" + x + "," + y + ") ship already hit";
-                return true;
-            } 
-            else if(field.ship && !field.shot) 
-            {
-                // ship and not yet hit
-                // hit it!
-                field.shot = true;
-                results += "(" + x + "," + y + ") ship hit";
-                return true;
-            } 
-            else if(!field.ship && field.shot) 
-            {
-                // water and already hit
-                results += "(" + x + "," + y + ") nothing hit";
-                return false;
+                var field = getField(x, y);
+                allowedShots--;
+                if(field.ship && field.shot) 
+                {
+                    // ship and already hit
+                    results += "(" + x + "," + y + ") ship already hit";
+                    return true;
+                } 
+                else if(field.ship && !field.shot) 
+                {
+                    // ship and not yet hit
+                    // hit it!
+                    field.shot = true;
+                    results += "(" + x + "," + y + ") ship hit";
+                    return true;
+                } 
+                else if(!field.ship && field.shot) 
+                {
+                    // water and already hit
+                    results += "(" + x + "," + y + ") nothing hit";
+                    return false;
+                }
+                else if (!field.ship && !field.shot)
+                {
+                    // water and not yet hit!
+                    // splash!
+                    results += "(" + x + "," + y + ") water already hit";
+                    return false;
+                }
             }
-            else if (!field.ship && !field.shot)
-            {
-                // water and not yet hit!
-                // splash!
-                results += "(" + x + "," + y + ") water already hit";
-                return false;
-            }
+            
 
             return false;
         }
@@ -73,6 +80,7 @@ namespace Sept1983Server
 
         public void resetResults() {
             results = "";
+            allowedShotsLeft = allowedShots;
         }
     }
 }

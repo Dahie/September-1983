@@ -9,5 +9,20 @@ namespace Sept1983Server
     {
         public String name;
         public Map map;
+
+        // increments on every round
+        public int laps = 0;
+
+        public Player(String name) 
+        {
+            this.name = name;
+        }
+
+        public void startGame() 
+        {
+            map = new Map();
+            // TODO add ships randomly
+            //map.addShips();
+        }
     }
 }
