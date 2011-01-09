@@ -85,7 +85,6 @@ namespace Sept1983Client
             if (keyState.IsKeyDown(Keys.Up))
                 sendSequenceName("made up name");
 
-
             // read messages from server
 
             NetIncomingMessage msg;
@@ -101,7 +100,7 @@ namespace Sept1983Client
                         // server sent a position update
                         String responseString = msg.ReadString();
                         
-                        // TODO write responseString to Console
+                        // TODO write responseString to XNAConsole
                         Console.WriteLine(responseString);
 
                         break;

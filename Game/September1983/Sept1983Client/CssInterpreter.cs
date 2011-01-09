@@ -37,7 +37,8 @@ namespace Sept1983Client
         private string getOutput()
         {
             //todo: do we need this for anything?
-            return "SCRIPT EVALUATED";
+            // daniel: no, maybe just for jokingly saying, that the command was registered and is now executed
+            return "SCRIPT EVALUATED AND VALID, THE RED BUTTON WILL BE PUSHED";
         }
 
         /// <summary>

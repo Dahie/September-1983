@@ -9,9 +9,5 @@ namespace Sept1983Server
     {
         public Boolean ship = false;
         public Boolean shot = false;
-
-        public Field()
-        {
-        }
     }
 }

@@ -7,6 +7,13 @@ namespace Sept1983Server
 {
     class SequenceExecuter
     {
+
+        protected Map map;
+
+        public SequenceExecuter(Map map) {
+            this.map = map;
+        }
+
         /**
          * Lädt das CS-Script interpretiert als FireSequence und führt 
          * Sequence aus.
@@ -17,6 +24,20 @@ namespace Sept1983Server
             String msg = "response"; //Rückgabenachricht
 
             //TODO: Script laden und interpretieren
+            FireSequence fireSequence = new FireSequence();
+
+            msg += ExecuteFiringSequence(fireSequence);
+
+            return msg;
+        }
+
+        public String ExecuteFiringSequence(FireSequence sequence) {
+            String msg = "Shots fired: ";
+
+            sequence.run(map);
+
+            msg = map.FiredShotsResults();
+            map.resetResults();
 
             return msg;
         }
