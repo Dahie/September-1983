@@ -46,6 +46,7 @@ namespace Sept1983Server
             {
                 var field = getField(x, y);
                 allowedShotsLeft--;
+                
                 if (field.ship && field.shot)
                 {
                     // ship and already hit
@@ -63,14 +64,15 @@ namespace Sept1983Server
                 else if (!field.ship && field.shot)
                 {
                     // water and already hit
-                    results += "(" + x + "," + y + ") nothing hit\n";
+                    results += "(" + x + "," + y + ") water already hit\n";
                     return false;
                 }
                 else if (!field.ship && !field.shot)
                 {
                     // water and not yet hit!
                     // splash!
-                    results += "(" + x + "," + y + ") water already hit\n";
+                    field.shot = true;
+                    results += "(" + x + "," + y + ") water hit\n";
                     return false;
                 }
             }

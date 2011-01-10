@@ -139,10 +139,11 @@ namespace Sept1983Server
                 line += y + "|";
                 for (int x = 0; x < mapDim; x++)
                 {
-                    if (mapOfCurrentPlayer.getField(x, y).ship)
-                        line += (mapOfCurrentPlayer.getField(x, y).shot) ? " " + CHAR_SHIP_SHOT : " " + CHAR_SHIP;
+                    var field = mapOfCurrentPlayer.getField(x, y);
+                    if (field.ship)
+                        line += (field.shot) ? " " + CHAR_SHIP_SHOT : " " + CHAR_SHIP;
                     else
-                        line += (mapOfCurrentPlayer.getField(x, y).shot) ? " " + CHAR_WATER_SHOT : " " + CHAR_WATER;
+                        line += (field.shot) ? " " + CHAR_WATER_SHOT : " " + CHAR_WATER;
                 }
                 line += " | \n";
             }

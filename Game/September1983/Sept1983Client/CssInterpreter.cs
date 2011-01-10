@@ -119,7 +119,6 @@ namespace Sept1983Client
 
         public void WriteLine(string input)
         {
-            Console.WriteLine(input);
             console.WriteLine(input);
         }
     }
