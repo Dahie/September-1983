@@ -23,7 +23,7 @@ namespace Sept1983Server
          */
         public String LoadScript(String className)
         {
-            String msg = "response"; //Rückgabenachricht
+            String msg = ""; //Rückgabenachricht
 
             //TODO: Script laden und interpretieren
             var scriptAssembly = CSScript.Load("./Scripts/" + className + ".cs");
@@ -43,7 +43,7 @@ namespace Sept1983Server
 
             msg = map.FiredShotsResults();
             map.resetResults();
-
+            Console.WriteLine(msg);
             return msg;
         }
     }

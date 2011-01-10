@@ -26,6 +26,7 @@ namespace Sept1983Client
 
         NetClient client; // Managing Communication with Server
         CssInterpreter interpreter;
+        int round = 1; // current round of the game
 
         public GameClient()
         {
@@ -95,8 +96,8 @@ namespace Sept1983Client
                 this.Exit();
 
             // TODO: Add your update logic here
-            if (keyState.IsKeyDown(Keys.Up))
-                sendSequenceName("FireSequenceAlpha");
+            //if (keyState.IsKeyDown(Keys.Up))
+            //    sendSequenceName("FireSequenceAlpha");
 
             // read messages from server
 
@@ -110,10 +111,10 @@ namespace Sept1983Client
                         client.Connect(msg.SenderEndpoint);
                         break;
                     case NetIncomingMessageType.Data:
-                        // server sent a position update
+                        // receive game map
                         String responseString = msg.ReadString();
                         
-                        // TODO write responseString to XNAConsole
+                        // write responseString to XNAConsole
                         interpreter.WriteLine(responseString);
 
                         break;
@@ -151,6 +152,8 @@ namespace Sept1983Client
                 //
                 NetOutgoingMessage om = client.CreateMessage();
                 om.Write(sequenceName);
+                om.Write(round);
+                round++;
                 client.SendMessage(om, NetDeliveryMethod.Unreliable);
             }
         }

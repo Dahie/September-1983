@@ -26,6 +26,7 @@ namespace Sept1983Server
 
             Player playerServer = new Player("Server", mapServer); // non-player-character ie our server
             Player playerHuman = new Player("Human", mapHuman); // player character
+            int currentRound = 0;
 
             ArrayList sequences = new ArrayList();
             sequences.Add("FireSequenceAlpha");
@@ -52,6 +53,7 @@ namespace Sept1983Server
 				NetIncomingMessage msg;
 				while ((msg = server.ReadMessage()) != null)
 				{
+                    Console.WriteLine(msg);
 					switch (msg.MessageType)
 					{
 						case NetIncomingMessageType.DiscoveryRequest:
@@ -88,31 +90,37 @@ namespace Sept1983Server
 							// The client sent input to the server
 							
                             String sequenceName = msg.ReadString();
-                            Console.WriteLine("Received fireSequenceName: " + sequenceName);
-
-                            // choose and fire sequence
-
-                            var executer = new SequenceExecuter(playerServer.map);
-                            var resultMessagePlayer = executer.LoadScript(sequenceName);
-
-
-                            // switch round to npc
-
-                            // fire random sequence
-                            int randomIndex = RandomNumber(0, sequences.Count);
-                            sequenceName = (String)sequences[randomIndex];
-                            executer = new SequenceExecuter(playerHuman.map);
-                            var resultMessageNPC = executer.LoadScript(sequenceName);
-
-                            // send response to client
-
-                            NetOutgoingMessage om = server.CreateMessage();
-                            var responseString = resultMessagePlayer + "\n\n Map \n\n" + resultMessageNPC;
-                            om.Write(responseString);
-                            // send to every player, which is only one in our case
-                            foreach (NetConnection player in server.Connections) 
+                            int round = msg.ReadInt32();
+                            if (round > currentRound)
                             {
-                                server.SendMessage(om, player, NetDeliveryMethod.Unreliable);
+                                currentRound = round;
+
+                                // choose and fire sequence
+
+                                var executer = new SequenceExecuter(playerServer.map);
+                                var resultMessagePlayer = executer.LoadScript(sequenceName);
+
+
+                                // switch round to npc
+
+                                // fire random sequence
+                                int randomIndex = RandomNumber(0, sequences.Count);
+                                sequenceName = (String)sequences[randomIndex];
+                                executer = new SequenceExecuter(playerHuman.map);
+                                var resultMessageNPC = executer.LoadScript(sequenceName);
+
+                                // send response to client
+
+                                NetOutgoingMessage om = server.CreateMessage();
+                                String battlefield = Battlefield.Draw(playerHuman, playerServer);
+                                var responseString = "Player: " + resultMessagePlayer + "\n" + battlefield + " \nComputer: " + resultMessageNPC;
+                                Console.WriteLine(responseString);
+                                om.Write(responseString);
+                                // send to every player, which is only one in our case
+                                foreach (NetConnection player in server.Connections)
+                                {
+                                    server.SendMessage(om, player, NetDeliveryMethod.Unreliable);
+                                }
                             }
 
 							break;

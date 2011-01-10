@@ -42,38 +42,41 @@ namespace Sept1983Server
         /// <returns>true if hit</returns>
         public Boolean fireShot(int x, int y)
         {
-            if(allowedShotsLeft > 0) 
+            if (allowedShotsLeft > 0)
             {
                 var field = getField(x, y);
-                allowedShots--;
-                if(field.ship && field.shot) 
+                allowedShotsLeft--;
+                if (field.ship && field.shot)
                 {
                     // ship and already hit
-                    results += "(" + x + "," + y + ") ship already hit";
+                    results += "(" + x + "," + y + ") ship already hit\n";
                     return true;
-                } 
-                else if(field.ship && !field.shot) 
+                }
+                else if (field.ship && !field.shot)
                 {
                     // ship and not yet hit
                     // hit it!
                     field.shot = true;
-                    results += "(" + x + "," + y + ") ship hit";
+                    results += "(" + x + "," + y + ") ship hit\n";
                     return true;
-                } 
-                else if(!field.ship && field.shot) 
+                }
+                else if (!field.ship && field.shot)
                 {
                     // water and already hit
-                    results += "(" + x + "," + y + ") nothing hit";
+                    results += "(" + x + "," + y + ") nothing hit\n";
                     return false;
                 }
                 else if (!field.ship && !field.shot)
                 {
                     // water and not yet hit!
                     // splash!
-                    results += "(" + x + "," + y + ") water already hit";
+                    results += "(" + x + "," + y + ") water already hit\n";
                     return false;
                 }
-            }            
+            }
+            else {
+                Console.WriteLine("All shots exhausted.");
+            }        
 
             return false;
         }
@@ -112,6 +115,7 @@ namespace Sept1983Server
         {
             results = "";
             allowedShotsLeft = allowedShots;
+            Console.WriteLine(allowedShotsLeft);
         }
 
         /// <summary>
