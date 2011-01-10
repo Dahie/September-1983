@@ -29,14 +29,14 @@ namespace Sept1983Server
             var scriptAssembly = CSScript.Load("./Scripts/" + className + ".cs");
             AsmHelper assemblyHelper = new AsmHelper(scriptAssembly);
 
-            var fireSequence = (Scripts.IFireSequence)assemblyHelper.CreateObject(className);
+            var fireSequence = (IFireSequence)assemblyHelper.CreateObject(className);
 
             msg += ExecuteFiringSequence(fireSequence);
 
             return msg;
         }
 
-        private String ExecuteFiringSequence(Scripts.IFireSequence sequence) {
+        private String ExecuteFiringSequence(IFireSequence sequence) {
             String msg = "Shots fired: ";
 
             sequence.Launch(map);

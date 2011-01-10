@@ -130,7 +130,8 @@ namespace Sept1983Server
             catch (SocketException ex)
             {
                 System.Console.WriteLine("Socket could not be initiated, is the port already used?!");
-              
+                System.Windows.Forms.MessageBox.Show("Socket could not be initiated, is the port already used?!", 
+                    "September 1983 Server");
             }
 
 		}

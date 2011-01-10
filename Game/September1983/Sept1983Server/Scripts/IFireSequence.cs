@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
+using Sept1983Server;
 
-namespace Sept1983Server.Scripts
+interface IFireSequence
 {
-    interface IFireSequence
-    {
-        void Launch(Map map);
-    }
+    void Launch(Map map);
 }
