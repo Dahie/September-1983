@@ -16,15 +16,17 @@ namespace Sept1983Client
         private const string Prompt = ">>> ";
         private const string PromptCont = "... ";
         private string multi;
+        private GameClient game;
 
         private XnaConsoleComponent console;
 
         /// <summary>
         /// Creates a new CssInterpreter
         /// </summary>
-        public CssInterpreter(Game game, SpriteFont font) : base((Game)game)
+        public CssInterpreter(GameClient parentGame, SpriteFont font) : base((GameClient)parentGame)
         {            
             multi = "";
+            game = parentGame;
             console = new XnaConsoleComponent(game, font);
             game.Components.Add(console);
             console.Prompt(Prompt, Execute);
@@ -94,9 +96,9 @@ namespace Sept1983Client
                     hostEnvironment.WriteLine(message);
                 }}
 
-                private static void run(string fileName, string className)
+                private static void run(string className)
                 {{
-                    hostEnvironment.LoadScript(fileName, className);
+                    hostEnvironment.LoadScript(className);
                 }}
 
                 public static void Evaluate(CssInterpreter callee)
@@ -110,13 +112,9 @@ namespace Sept1983Client
             script.Invoke("*.Evaluate", this); 
         }
 
-        public void LoadScript(string fileName, string className) 
+        public void LoadScript(string className) 
         {
-            var scriptAssembly = CSScript.Load("./Scripts/"+fileName);
-            AsmHelper assemblyHelper = new AsmHelper(scriptAssembly);
-
-            var script = (Scripts.IFireSequenceScript)assemblyHelper.CreateObject(className);
-            script.Launch();
+            game.sendSequenceName(className);
         }
 
         public void WriteLine(string input)

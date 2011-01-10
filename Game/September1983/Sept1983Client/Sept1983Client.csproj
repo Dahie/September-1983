@@ -93,12 +93,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="GameClient.cs" />
-    <Compile Include="Scripts\Example.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Scripts\IFireSequenceScript.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
     <Compile Include="XnaConsole.cs" />
   </ItemGroup>
   <ItemGroup>
