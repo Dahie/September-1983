@@ -95,8 +95,8 @@ namespace Sept1983Client
                 this.Exit();
 
             // TODO: Add your update logic here
-            if (keyState.IsKeyDown(Keys.Up))
-                sendSequenceName("made up name");
+            //if (keyState.IsKeyDown(Keys.Up))
+            //    sendSequenceName("made up name");
 
             // read messages from server
 

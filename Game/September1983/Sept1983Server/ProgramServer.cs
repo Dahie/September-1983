@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Collections;
+using System.Net.Sockets;
 
 using Lidgren.Network;
 
@@ -36,6 +37,8 @@ namespace Sept1983Server
 
 			// create and start server
 			NetServer server = new NetServer(config);
+            try 
+            {
 			server.Start();
 
 			// schedule initial sending of position updates
@@ -44,6 +47,7 @@ namespace Sept1983Server
 			// run until escape is pressed
 			//while (!Console.KeyAvailable || Console.ReadKey().Key != ConsoleKey.Escape)
             while (true)
+
             {
 				NetIncomingMessage msg;
 				while ((msg = server.ReadMessage()) != null)
@@ -84,6 +88,7 @@ namespace Sept1983Server
 							// The client sent input to the server
 							
                             String sequenceName = msg.ReadString();
+                            Console.WriteLine("Received fireSequenceName: " + sequenceName);
 
                             // choose and fire sequence
 
@@ -111,48 +116,23 @@ namespace Sept1983Server
                             }
 
 							break;
-					}
+					} // switch messageType
 
-					//
-					// send position updates 30 times per second
-					//
-					/*double now = NetTime.Now;
-					if (now > nextSendUpdates)
-					{
-						// Yes, it's time to send position updates
+				} // while readMessage
 
-						// for each player...
-						foreach (NetConnection player in server.Connections)
-						{
-							// ... send information about every other player (actually including self)
-							foreach (NetConnection otherPlayer in server.Connections)
-							{
-								// send position update about 'otherPlayer' to 'player'
-								NetOutgoingMessage om = server.CreateMessage();
-
-								// write who this position is for
-								om.Write(otherPlayer.RemoteUniqueIdentifier);
-
-								if (otherPlayer.Tag == null)
-									otherPlayer.Tag = new int[2];
-
-								int[] pos = otherPlayer.Tag as int[];
-								om.Write(pos[0]);
-								om.Write(pos[1]);
-
-								// send message
-								server.SendMessage(om, player, NetDeliveryMethod.Unreliable);
-							}
-						}
-
-						// schedule next update
-						nextSendUpdates += (1.0 / 30.0);
-					}*/
-				}
+               
 
 				// sleep to allow other processes to run smoothly
 				Thread.Sleep(1);
-			}
+			} // while thread
+
+            }
+            catch (SocketException ex)
+            {
+                System.Console.WriteLine("Socket could not be initiated, is the port already used?!");
+              
+            }
+
 		}
 	}
 }
