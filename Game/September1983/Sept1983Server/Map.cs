@@ -8,16 +8,16 @@ namespace Sept1983Server
     /// <summary>
     /// represents map of a player
     /// </summary>
-    class Map
+    public class Map
     {
         /// <summary>edge length of map</summary>
-        protected static int dimension;
+        static int dimension;
         /// <summary>fields of map</summary>
-        protected Field[,] fields;
+        private Field[,] fields;
         /// <summary>max number of shots per shot sequence</summary>
         public static int allowedShots = 5;
         /// <summary>shots left in sequence</summary>
-        protected int allowedShotsLeft = allowedShots;
+        private int allowedShotsLeft = allowedShots;
         /// <summary>stores the string of successfully fired shots</summary>
         protected String results = "";
 

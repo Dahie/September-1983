@@ -10,11 +10,10 @@ public class FireSequenceAlpha : IFireSequence
     {
         //TODO: Implementierung der Abschusssequenz
 
-        /*map.fireShot(0, 0);
+        map.fireShot(0, 0);
         map.fireShot(2, 2);
         map.fireShot(0, 2);
         map.fireShot(4, 2);
-        map.fireShot(0, 4);*/
+        map.fireShot(0, 4);
     }
 }
-

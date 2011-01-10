@@ -11,11 +11,12 @@ class FireSequenceBeta : IFireSequence
     {
         //TODO: Implementierung der Abschusssequenz
 
-        for (int i = 0; i < Map.allowedShots; i++ )
+        for (int i = 0; i < Map.allowedShots; i++)
         {
-            var randX = ProgramServer.RandomNumber(0, map.GetSize() );
-            var randY = ProgramServer.RandomNumber(0, map.GetSize() );
+            var randX = ProgramServer.RandomNumber(0, map.GetSize());
+            var randY = ProgramServer.RandomNumber(0, map.GetSize());
             map.fireShot(randX, randY);
         }
     }
+
 }

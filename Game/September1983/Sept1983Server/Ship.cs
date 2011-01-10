@@ -8,7 +8,7 @@ namespace Sept1983Server
     /// <summary>
     /// represents ship on map
     /// </summary>
-    class Ship
+    public class Ship
     {
         /// <summary>size of shipp in number of fields</summary>
         public int size;

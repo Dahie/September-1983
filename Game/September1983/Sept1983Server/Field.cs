@@ -8,7 +8,7 @@ namespace Sept1983Server
     /// <summary>
     /// field on map
     /// </summary>
-    class Field
+    public class Field
     {
         
         /// <summary>ship on this field</summary>

@@ -28,8 +28,8 @@ namespace Sept1983Server
             Player playerHuman = new Player("Human", mapHuman); // player character
 
             ArrayList sequences = new ArrayList();
-            sequences.Add("FireSequenceAlpha.cs");
-            sequences.Add("FireSequenceBeta.cs");
+            sequences.Add("FireSequenceAlpha");
+            sequences.Add("FireSequenceBeta");
 
 			NetPeerConfiguration config = new NetPeerConfiguration("xnaapp");
 			config.EnableMessageType(NetIncomingMessageType.DiscoveryRequest);
