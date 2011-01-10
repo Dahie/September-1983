@@ -5,9 +5,9 @@ using System.Text;
 
 namespace Sept1983Server
 {
-    class FireSequence : IFireSequence
+    class FireSequence : Sept1983Server.Scripts.IFireSequence
     {
-        public void run(Map map)
+        public void Launch(Map map)
         {
             //TODO: Implementierung der Abschusssequenz
 

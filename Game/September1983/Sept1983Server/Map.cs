@@ -89,6 +89,13 @@ namespace Sept1983Server
             return fields[x, y];
         }
 
+
+
+        public int GetSize()
+        {
+            return fields.GetLength(0);
+        }
+
         /// <summary>
         /// returns all fired shots
         /// </summary>

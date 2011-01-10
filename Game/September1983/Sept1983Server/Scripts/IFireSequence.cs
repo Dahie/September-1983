@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Sept1983Server
+namespace Sept1983Server.Scripts
 {
     interface IFireSequence
     {
-        void run(Map map);
+        void Launch(Map map);
     }
 }
