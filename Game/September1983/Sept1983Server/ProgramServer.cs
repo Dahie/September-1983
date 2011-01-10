@@ -19,9 +19,12 @@ namespace Sept1983Server
 		{
 
             // initialize
+            int mapDimension = 16;
+            Map mapServer = Map.GenerateShipsOnMap(new Map(mapDimension));
+            Map mapHuman = Map.GenerateShipsOnMap(new Map(mapDimension));
 
-            Player playerOne = new Player("Player"); // non-player-character ie our server
-            Player playerTwo; // player character
+            Player playerServer = new Player("Server", mapServer); // non-player-character ie our server
+            Player playerHuman = new Player("Human", mapHuman); // player character
 
             ArrayList sequences = new ArrayList();
             sequences.Add("FireSequenceAlpha.cs");
@@ -66,10 +69,9 @@ namespace Sept1983Server
 
                                 // create new player object
                                 // initialize new game
-                                playerTwo = new Player("Computer");
 
-                                playerOne.startGame();
-                                playerTwo.startGame();
+                                //playerServer.startGame();
+                                //playerHuman.startGame();
 
 							}
 
@@ -84,7 +86,7 @@ namespace Sept1983Server
 
                             // choose and fire sequence
 
-                            var executer = new SequenceExecuter(playerOne.map);
+                            var executer = new SequenceExecuter(playerServer.map);
                             var resultMessagePlayer = executer.LoadScript(sequenceName);
 
 
@@ -93,7 +95,7 @@ namespace Sept1983Server
                             // fire random sequence
                             int randomIndex = RandomNumber(0, sequences.Count);
                             sequenceName = (String)sequences[randomIndex];
-                            executer = new SequenceExecuter(playerTwo.map);
+                            executer = new SequenceExecuter(playerHuman.map);
                             var resultMessageNPC = executer.LoadScript(sequenceName);
 
                             // send response to client

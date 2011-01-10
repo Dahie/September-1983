@@ -27,10 +27,10 @@ namespace Sept1983Server
         /// <returns>processed string e.g. for console</returns>
         public static String Draw(Player currentPlayer, Player opponentPlayer)
         {
-            int mapDim = opponentPlayer.Dimension;
+            int mapDim = opponentPlayer.map.Dimension;
             String line = "\n";
 
-            line += DrawHeader(mapDim);
+            line += DrawHeader(mapDim, opponentPlayer);
             line += drawResultRows(currentPlayer.map, opponentPlayer.map);
 
             line += "---+";
