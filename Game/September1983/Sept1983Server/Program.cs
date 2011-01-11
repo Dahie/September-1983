@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 
 namespace Sept1983Server
 {
@@ -9,7 +10,15 @@ namespace Sept1983Server
         /// </summary>
         static void Main(string[] args)
         {
+            //Thread serverThread;
+            //serverThread = new Thread(new ThreadStart(Program.showDummyGUI));
+            //serverThread.Start();
             ProgramServer.Run();
+        }
+
+        public static void showDummyGUI() {
+            Gui gui = new Gui();
+            gui.Show();
         }
     }
 }
