@@ -24,12 +24,15 @@ namespace Sept1983Client
         /// Creates a new CssInterpreter
         /// </summary>
         public CssInterpreter(GameClient parentGame, SpriteFont font) : base((GameClient)parentGame)
-        {            
+        {
             multi = "";
             game = parentGame;
-            console = new XnaConsoleComponent(game, font);
-            game.Components.Add(console);
-            Prompt();
+            // Initialize console for interpreter
+
+            // Register console as part of the game environment
+
+            // Show prompt and await input
+
         }
 
         /// <summary>
@@ -87,8 +90,8 @@ namespace Sept1983Client
 
         public void Prompt()
         {
-            console.Prompt(PromptPre, Execute);
+            // Show prompt in console and give callback method for input execution
+
         }
     }
-
 }

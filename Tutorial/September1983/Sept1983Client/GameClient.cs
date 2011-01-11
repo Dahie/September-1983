@@ -26,8 +26,9 @@ namespace Sept1983Client
         SpriteBatch spriteBatch;
 
 
+
         // Interpreter needed to load XNA Console in Initialize()
-        CssInterpreter interpreter;
+
         
         int round = 1; // current round of the game
 
@@ -49,9 +50,10 @@ namespace Sept1983Client
         {
             // create instance of XNA Console with CS-Script interpreter
             // need to load SpriteFont from Content to pass to constructor
-            interpreter = new CssInterpreter(this, Content.Load<SpriteFont>("consolas"));
 
-            // TODO initialization of network connection to server
+
+            // initialization of network connection to server
+            client.DiscoverLocalPeers(14242);
 
             base.Initialize();
         }
