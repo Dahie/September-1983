@@ -44,7 +44,7 @@ namespace Sept1983Client
                 if ((input != "") && ((input[input.Length - 1].ToString() != ";") || (multi != ""))) //multiline block incomplete, ask for more
                 {
                     multi += input + "\n";
-                    console.Prompt(PromptPre, Execute);
+                    Prompt();
                 }
                 else if (multi != "" && input == "") //execute the multiline code after block is finished
                 {
@@ -72,31 +72,7 @@ namespace Sept1983Client
         /// <param name="input"></param>
         private void Evaluate( string input )
         {
-            string boilerplate = @"
-            
-                using Sept1983Client;
 
-                private static CssInterpreter hostEnvironment;
-
-                private static void Log(string message)
-                {{
-                    hostEnvironment.WriteLine(message);
-                }}
-
-                private static void Run(string className)
-                {{
-                    hostEnvironment.LoadScript(className);
-                }}
-
-                public static void Evaluate(CssInterpreter callee)
-                {{   
-                    hostEnvironment = callee;                                   
-                    {0}; // here goes the code that is to be evaluated.  
-                }}";
-
-
-            var script = new AsmHelper(CSScript.LoadMethod(string.Format(boilerplate, input)));
-            script.Invoke("*.Evaluate", this); 
         }
 
         public void LoadScript(string className) 
