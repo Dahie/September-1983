@@ -16,7 +16,7 @@ class FireSequenceBeta : IFireSequence
 
     public void Launch(Map map)
     {
-        //TODO: Implementierung der Abschusssequenz
+        // Implementierung der Abschusssequenz
 
         for (int i = 0; i < Map.allowedShots; i++)
         {
