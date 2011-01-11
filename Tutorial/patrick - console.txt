@@ -1,0 +1,31 @@
+### GameClient.cs
+public class GameClient : Microsoft.Xna.Framework.Game
+{
+	// Interpreter needed to load XNA Console in Initialize()
+	CssInterpreter interpreter;
+
+	protected override void Initialize()
+	{
+		// create instance of XNA Console with CS-Script interpreter
+		// need to load SpriteFont from Content to pass to constructor
+		interpreter = new CssInterpreter(this, Content.Load<SpriteFont>("consolas"));
+	}
+}
+
+
+### CssInterpreter.cs
+public class CssInterpreter : DrawableGameComponent
+{
+	// Initialize console for interpreter
+	console = new XnaConsoleComponent(game, font);
+	// Register console as part of the game environment
+	game.Components.Add(console);
+	// Show prompt and await input
+	Prompt();
+}
+
+public void Prompt()
+{
+	// Show prompt in console and give callback method for input execution
+	console.Prompt(PromptPre, Execute);
+}

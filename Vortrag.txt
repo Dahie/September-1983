@@ -1,0 +1,39 @@
+Intro
+=====
+Kurz die Bibliotheken vorstellen
+Schwer ein Game
+
+
+Vorträge
+========
+
+
+
+
+PAUSE
+=====
+Überlegen, was man für Spiele mit den 3 Bibliotheken umsetzen könnte
+
+
+Workshop
+========
+Zeige Spiel
+Tafelbild über Kreislauf(Ablauf)
+
+CS-Script
+---------
+Boilerplate-Funktion erklären und implementieren
+
+XNA-Console
+-----------
+Definition interpreter
+Initialize implementation
+Ablauf im CSSInterpreter
+
+Network
+-------
+Grundstruktur des Netwerk erklären
+Auf client
+	Service discovery
+Auf Server-Seite
+	Definition des Servers
