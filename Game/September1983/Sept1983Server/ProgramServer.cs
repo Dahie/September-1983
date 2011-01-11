@@ -33,6 +33,8 @@ namespace Sept1983Server
 		public static void Run()
 		{
 
+            
+
             // initialize
             int mapDimension = 16;
             Map mapServer = Map.GenerateShipsOnMap(new Map(mapDimension));

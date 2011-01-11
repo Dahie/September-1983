@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -51,16 +52,10 @@ namespace Sept1983Client
             // initialization of network connection to server
             interpreter = new CssInterpreter(this, Content.Load<SpriteFont>("consolas"));
             client.DiscoverLocalPeers(14242);
-            if (client.ConnectionsCount > 0)
-            {
-                WriteLog("Connection to missile launch system active.");
-            }
-            else 
-            {
-                WriteLog("Connection to missile launch system inactive.");
-            }
 
-            // TODO: Add your initialization logic here
+           
+
+            // Add your initialization logic here
 
             base.Initialize();
         }
@@ -95,10 +90,6 @@ namespace Sept1983Client
             if (keyState.IsKeyDown(Keys.Escape))
                 this.Exit();
 
-            // TODO: Add your update logic here
-            //if (keyState.IsKeyDown(Keys.Up))
-            //    sendSequenceName("FireSequenceAlpha");
-
             // read messages from server
 
             NetIncomingMessage msg;
@@ -109,6 +100,7 @@ namespace Sept1983Client
                     case NetIncomingMessageType.DiscoveryResponse:
                         // just connect to first server discovered
                         client.Connect(msg.SenderEndpoint);
+                        WriteLog("Connection to missile launch system active. Launch key 1111111 accepted successfully");
                         break;
                     case NetIncomingMessageType.Data:
                         // receive game map

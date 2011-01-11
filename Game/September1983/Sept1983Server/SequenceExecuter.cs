@@ -25,7 +25,7 @@ namespace Sept1983Server
         {
             String msg = ""; //Rückgabenachricht
 
-            //TODO: Script laden und interpretieren
+            // Script laden und interpretieren
             var scriptAssembly = CSScript.Load("./Scripts/" + className + ".cs");
             AsmHelper assemblyHelper = new AsmHelper(scriptAssembly);
 
