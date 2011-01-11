@@ -148,8 +148,7 @@ namespace XnaConsole
             device = game.GraphicsDevice;
             spriteBatch = new SpriteBatch(device);
             this.font = font;
-            background = new Texture2D(device, 1, 1, 1, TextureUsage.None,
-                SurfaceFormat.Color);
+            background = new Texture2D(device, 1, 1, 1, TextureUsage.None, SurfaceFormat.Color);
             background.SetData<Color>(new Color[1] { new Color(0, 0, 0, 125) });
 
             InputBuffer = "";

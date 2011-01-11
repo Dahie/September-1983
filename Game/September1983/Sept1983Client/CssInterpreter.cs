@@ -62,13 +62,13 @@ namespace Sept1983Client
                     string temp = multi; // make sure that multi is cleared, even if it returns an error
                     multi = "";
                     Evaluate(temp);
-                    console.WriteLine(getOutput());
+                    //console.WriteLine(getOutput());
                     console.Prompt(Prompt, Execute);
                 }
                 else // if (multi == "" && input != "") execute single line expressions or statements
                 {
                     Evaluate(input);
-                    console.WriteLine(console.Chomp(getOutput()));
+                    //console.WriteLine(console.Chomp(getOutput()));
                     console.Prompt(Prompt, Execute);
                 }
             }

@@ -49,8 +49,10 @@ namespace Sept1983Client
         /// </summary>
         protected override void Initialize()
         {
-            // initialization of network connection to server
+            // Interpreter einbauen
             interpreter = new CssInterpreter(this, Content.Load<SpriteFont>("consolas"));
+
+            // initialization of network connection to server
             client.DiscoverLocalPeers(14242);
 
            
