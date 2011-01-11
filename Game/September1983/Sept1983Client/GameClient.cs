@@ -60,11 +60,6 @@ namespace Sept1983Client
             base.Initialize();
         }
 
-        public void WriteLog(String log)
-        {
-            interpreter.Execute("log(\""+log+"\");");
-        }
-
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
         /// all of your content.
@@ -100,15 +95,17 @@ namespace Sept1983Client
                     case NetIncomingMessageType.DiscoveryResponse:
                         // just connect to first server discovered
                         client.Connect(msg.SenderEndpoint);
-                        WriteLog("Connection to missile launch system active. Launch key 1111111 accepted successfully");
+                        interpreter.WriteLine("Connection to missile launch system active. Launch key 1111111 accepted successfully");
+                        interpreter.Prompt();
                         break;
+
                     case NetIncomingMessageType.Data:
                         // receive game map
                         String responseString = msg.ReadString();
                         
                         // write responseString to XNAConsole
                         interpreter.WriteLine(responseString);
-
+                        interpreter.Prompt();
                         break;
                 }
             }
@@ -132,7 +129,6 @@ namespace Sept1983Client
         protected override void OnExiting(object sender, EventArgs args)
         {
             client.Shutdown("bye");
-
             base.OnExiting(sender, args);
         }
 

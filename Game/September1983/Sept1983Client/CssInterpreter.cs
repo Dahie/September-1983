@@ -13,7 +13,7 @@ namespace Sept1983Client
     /// </remarks>
     public class CssInterpreter : DrawableGameComponent
     {
-        private const string Prompt = ">>> ";
+        private const string PromptPre = ">>> ";
         private const string PromptCont = "... ";
         private string multi;
         private GameClient game;
@@ -29,18 +29,7 @@ namespace Sept1983Client
             game = parentGame;
             console = new XnaConsoleComponent(game, font);
             game.Components.Add(console);
-            console.Prompt(Prompt, Execute);
-        }
-
-        /// <summary>
-        /// Get string output from IronPythons MemoryStream standard out
-        /// </summary>
-        /// <returns></returns>
-        private string getOutput()
-        {
-            //todo: do we need this for anything?
-            // daniel: no, maybe just for jokingly saying, that the command was registered and is now executed
-            return "SCRIPT EVALUATED AND VALID, THE RED BUTTON WILL BE PUSHED";
+            Prompt();
         }
 
         /// <summary>
@@ -55,27 +44,25 @@ namespace Sept1983Client
                 if ((input != "") && ((input[input.Length - 1].ToString() != ";") || (multi != ""))) //multiline block incomplete, ask for more
                 {
                     multi += input + "\n";
-                    console.Prompt(Prompt, Execute);
+                    console.Prompt(PromptPre, Execute);
                 }
                 else if (multi != "" && input == "") //execute the multiline code after block is finished
                 {
                     string temp = multi; // make sure that multi is cleared, even if it returns an error
                     multi = "";
                     Evaluate(temp);
-                    console.WriteLine(getOutput());
-                    console.Prompt(Prompt, Execute);
+                    Prompt();
                 }
                 else // if (multi == "" && input != "") execute single line expressions or statements
                 {
                     Evaluate(input);
-                    console.WriteLine(console.Chomp(getOutput()));
-                    console.Prompt(Prompt, Execute);
+                    Prompt();
                 }
             }
             catch (Exception ex)
             {
-                console.WriteLine("ERROR: " + ex.Message);
-                console.Prompt(Prompt, Execute);
+                WriteLine("ERROR: " + ex.Message);
+                Prompt();
             }
         }
         
@@ -91,12 +78,12 @@ namespace Sept1983Client
 
                 private static CssInterpreter hostEnvironment;
 
-                private static void log(string message)
+                private static void Log(string message)
                 {{
                     hostEnvironment.WriteLine(message);
                 }}
 
-                private static void run(string className)
+                private static void Run(string className)
                 {{
                     hostEnvironment.LoadScript(className);
                 }}
@@ -120,6 +107,11 @@ namespace Sept1983Client
         public void WriteLine(string input)
         {
             console.WriteLine(input);
+        }
+
+        public void Prompt()
+        {
+            console.Prompt(PromptPre, Execute);
         }
     }
 
