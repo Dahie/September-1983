@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Reflection;
 
 using CSScriptLibrary;
 
@@ -26,7 +27,7 @@ namespace Sept1983Server
             String msg = ""; //Rückgabenachricht
 
             // Script laden und interpretieren
-            var scriptAssembly = CSScript.Load("./Scripts/" + className + ".cs");
+            Assembly scriptAssembly = CSScript.Load("./Scripts/" + className + ".cs");
             AsmHelper assemblyHelper = new AsmHelper(scriptAssembly);
 
             var fireSequence = (IFireSequence)assemblyHelper.CreateObject(className);

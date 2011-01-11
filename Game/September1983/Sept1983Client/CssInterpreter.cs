@@ -44,7 +44,7 @@ namespace Sept1983Client
                 if ((input != "") && ((input[input.Length - 1].ToString() != ";") || (multi != ""))) //multiline block incomplete, ask for more
                 {
                     multi += input + "\n";
-                    console.Prompt(PromptPre, Execute);
+                    Prompt();
                 }
                 else if (multi != "" && input == "") //execute the multiline code after block is finished
                 {
@@ -95,7 +95,7 @@ namespace Sept1983Client
                 }}";
 
 
-            var script = new AsmHelper(CSScript.LoadMethod(string.Format(boilerplate, input)));
+            AsmHelper script = new AsmHelper(CSScript.LoadMethod(string.Format(boilerplate, input)));
             script.Invoke("*.Evaluate", this); 
         }
 
