@@ -40,6 +40,7 @@ namespace Sept1983Server
             for (int i = 0; i < mapDim; i++)
                 line += "--";
             line += "-+\n";
+            line += "     O: Shot into water  X: Ship hit  S: Ship still intact\n";
 
             return line;
         }
