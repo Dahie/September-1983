@@ -25,7 +25,7 @@ namespace Sept1983Client
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        NetClient client; // Managing Communication with Server
+
         // Interpreter needed to load XNA Console in Initialize()
         CssInterpreter interpreter;
         
@@ -36,11 +36,7 @@ namespace Sept1983Client
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
-            NetPeerConfiguration config = new NetPeerConfiguration("xnaapp");
-            config.EnableMessageType(NetIncomingMessageType.DiscoveryResponse);
-
-            client = new NetClient(config);
-            client.Start();
+		  // TODO setup network client
         }
 
         /// <summary>
@@ -55,12 +51,7 @@ namespace Sept1983Client
             // need to load SpriteFont from Content to pass to constructor
             interpreter = new CssInterpreter(this, Content.Load<SpriteFont>("consolas"));
 
-            // initialization of network connection to server
-            client.DiscoverLocalPeers(14242);
-
-           
-
-            // Add your initialization logic here
+            // TODO initialization of network connection to server
 
             base.Initialize();
         }
@@ -98,19 +89,18 @@ namespace Sept1983Client
                 switch (msg.MessageType)
                 {
                     case NetIncomingMessageType.DiscoveryResponse:
-                        // just connect to first server discovered
-                        client.Connect(msg.SenderEndpoint);
-                        interpreter.WriteLine("Connection to missile launch system active. Launch key 1111111 accepted successfully");
-                        interpreter.Prompt();
+                        // TODO just connect to first server discovered
+                        
+                        Console.WriteLine("Connection to missile launch system active. Launch key 1111111 accepted successfully");
+                        //interpreter.Prompt();
                         break;
 
                     case NetIncomingMessageType.Data:
-                        // receive game map
-                        String responseString = msg.ReadString();
+                        // TODO receive game map
                         
                         // write responseString to XNAConsole
-                        interpreter.WriteLine(responseString);
-                        interpreter.Prompt();
+                        Console.WriteLine(responseString);
+                        //interpreter.Prompt();
                         break;
                 }
             }
@@ -141,13 +131,9 @@ namespace Sept1983Client
             if (sequenceName != null && sequenceName.Length > 0)
             {
                 //
-                // If there's input; send it to server
+                // TODO If there's input; send it to server
                 //
-                NetOutgoingMessage om = client.CreateMessage();
-                om.Write(sequenceName);
-                om.Write(round);
-                round++;
-                client.SendMessage(om, NetDeliveryMethod.Unreliable);
+
             }
         }
     }

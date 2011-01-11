@@ -32,9 +32,6 @@ namespace Sept1983Server
 
 		public static void Run()
 		{
-
-            
-
             // initialize
             int mapDimension = 16;
             Map mapServer = Map.GenerateShipsOnMap(new Map(mapDimension));
@@ -68,7 +65,6 @@ namespace Sept1983Server
 				NetIncomingMessage msg;
 				while ((msg = server.ReadMessage()) != null)
 				{
-                    Console.WriteLine(msg);
 					switch (msg.MessageType)
 					{
 						case NetIncomingMessageType.DiscoveryRequest:

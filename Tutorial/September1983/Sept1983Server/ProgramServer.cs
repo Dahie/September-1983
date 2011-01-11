@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading;
 using System.Collections;
 using System.Net.Sockets;
@@ -32,9 +32,6 @@ namespace Sept1983Server
 
 		public static void Run()
 		{
-
-            
-
             // initialize
             int mapDimension = 16;
             Map mapServer = Map.GenerateShipsOnMap(new Map(mapDimension));
@@ -47,15 +44,14 @@ namespace Sept1983Server
             ArrayList sequences = initSequenceList("Scripts");
         
 
-			NetPeerConfiguration config = new NetPeerConfiguration("xnaapp");
-			config.EnableMessageType(NetIncomingMessageType.DiscoveryRequest);
-			config.Port = 14242;
+		   // TODO initiate Server
+            // server listens to port
 
-			// create and start server
-			NetServer server = new NetServer(config);
+
             try 
             {
-			server.Start();
+              // TODO start server
+
 
 			// schedule initial sending of position updates
 			double nextSendUpdates = NetTime.Now;
@@ -68,7 +64,6 @@ namespace Sept1983Server
 				NetIncomingMessage msg;
 				while ((msg = server.ReadMessage()) != null)
 				{
-                    Console.WriteLine(msg);
 					switch (msg.MessageType)
 					{
 						case NetIncomingMessageType.DiscoveryRequest:
@@ -142,22 +137,15 @@ namespace Sept1983Server
                                 responseString = "Game round invalid";
                             }
 
+						// TODO server response implementation
 
 
-                            NetOutgoingMessage om = server.CreateMessage();
-                            om.Write(responseString);
-                            // send to every player, which is only one in our case
-                            foreach (NetConnection player in server.Connections)
-                            {
-                                server.SendMessage(om, player, NetDeliveryMethod.Unreliable);
-                            }
+
 
 							break;
 					} // switch messageType
 
 				} // while readMessage
-
-               
 
 				// sleep to allow other processes to run smoothly
 				Thread.Sleep(1);
