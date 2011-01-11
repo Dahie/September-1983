@@ -99,6 +99,9 @@
     <Compile Include="Gui.Designer.cs">
       <DependentUpon>Gui.cs</DependentUpon>
     </Compile>
+    <Compile Include="Scripts\FireSequenceBeta.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Scripts\IFireSequence.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="Player.cs" />
@@ -108,7 +111,7 @@
     <Compile Include="Scripts\FireSequenceAlpha.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Scripts\FireSequenceBeta.cs">
+    <Compile Include="Scripts\FireSequenceGamma.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="SequenceExecuter.cs" />

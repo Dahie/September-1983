@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Collections;
 using System.Net.Sockets;
+using System.IO;
 
 using Lidgren.Network;
 
@@ -16,6 +17,19 @@ namespace Sept1983Server
             return random.Next(min, max);
         }
 
+        private static ArrayList initSequenceList(String folder) {
+            ArrayList sequences = new ArrayList();
+            DirectoryInfo di = new DirectoryInfo("./Scripts/");
+            FileInfo[] rgFiles = di.GetFiles("*.cs");
+            foreach (FileInfo fi in rgFiles)
+            {
+                var name = fi.Name.Substring(0, fi.Name.LastIndexOf("."));
+                sequences.Add(name);
+            }
+            return sequences;
+        }
+        
+
 		public static void Run()
 		{
 
@@ -28,9 +42,8 @@ namespace Sept1983Server
             Player playerHuman = new Player("Human", mapHuman); // player character
             int currentRound = 0;
 
-            ArrayList sequences = new ArrayList();
-            sequences.Add("FireSequenceAlpha");
-            sequences.Add("FireSequenceBeta");
+            ArrayList sequences = initSequenceList("Scripts");
+        
 
 			NetPeerConfiguration config = new NetPeerConfiguration("xnaapp");
 			config.EnableMessageType(NetIncomingMessageType.DiscoveryRequest);
@@ -84,17 +97,23 @@ namespace Sept1983Server
 
 							break;
 						case NetIncomingMessageType.Data:
-							
+
+                            String responseString = "Nothing happend";
+
                             // player round
 
 							// The client sent input to the server
 							
                             String sequenceName = msg.ReadString();
+
                             int round = msg.ReadInt32();
                             if (round > currentRound)
                             {
                                 currentRound = round;
 
+                                if (sequences.Contains(sequenceName))
+                                {
+                                
                                 // choose and fire sequence
 
                                 var executer = new SequenceExecuter(playerServer.map);
@@ -111,16 +130,24 @@ namespace Sept1983Server
 
                                 // send response to client
 
-                                NetOutgoingMessage om = server.CreateMessage();
+                                
                                 String battlefield = Battlefield.Draw(playerHuman, playerServer);
-                                var responseString = "Player: " + resultMessagePlayer + "\n" + battlefield + " \nComputer: " + resultMessageNPC;
-                                Console.WriteLine(responseString);
-                                om.Write(responseString);
-                                // send to every player, which is only one in our case
-                                foreach (NetConnection player in server.Connections)
-                                {
-                                    server.SendMessage(om, player, NetDeliveryMethod.Unreliable);
+                                responseString = "Player: " + resultMessagePlayer + "\n" + battlefield + " \nComputer: " + resultMessageNPC;
+                                } else {
+                                    responseString = "FireSequence not recognized!";
                                 }
+                            } else {
+                                responseString = "Game round invalid";
+                            }
+
+
+
+                            NetOutgoingMessage om = server.CreateMessage();
+                            om.Write(responseString);
+                            // send to every player, which is only one in our case
+                            foreach (NetConnection player in server.Connections)
+                            {
+                                server.SendMessage(om, player, NetDeliveryMethod.Unreliable);
                             }
 
 							break;

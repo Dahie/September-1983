@@ -5,7 +5,7 @@ using System.Text;
 using Sept1983Server;
 
 
-class FireSequenceBeta : IFireSequence
+class FireSequenceGamma : IFireSequence
 {
 
     public static int RandomNumber(int seed, int min, int max)
@@ -18,11 +18,16 @@ class FireSequenceBeta : IFireSequence
     {
         // Implementierung der Abschusssequenz
 
+        int randX = RandomNumber(1, 1, map.GetSize()-1);
+        int randY = RandomNumber(1*2, 1, map.GetSize()-1);
+
         for (int i = 0; i < Map.allowedShots; i++)
         {
-            int randX = RandomNumber(i, 0, map.GetSize());
-            int randY = RandomNumber(i*2, 0, map.GetSize());
             map.fireShot(randX, randY);
+            map.fireShot(randX-1, randY);
+            map.fireShot(randX, randY-1);
+            map.fireShot(randX, randY+1);
+            map.fireShot(randX+1, randY);
         }
     }
 
