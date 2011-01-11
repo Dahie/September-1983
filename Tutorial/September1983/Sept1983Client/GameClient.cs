@@ -25,7 +25,7 @@ namespace Sept1983Client
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-
+        NetClient client = null; // Managing Communication with Server
 
         // Interpreter needed to load XNA Console in Initialize()
 
@@ -52,8 +52,8 @@ namespace Sept1983Client
             // need to load SpriteFont from Content to pass to constructor
 
 
-            // initialization of network connection to server
-            client.DiscoverLocalPeers(14242);
+            // TODO initialization of network connection to server
+            
 
             base.Initialize();
         }
@@ -86,24 +86,29 @@ namespace Sept1983Client
             // read messages from server
 
             NetIncomingMessage msg;
-            while ((msg = client.ReadMessage()) != null)
+            if (client != null)
             {
-                switch (msg.MessageType)
-                {
-                    case NetIncomingMessageType.DiscoveryResponse:
-                        // TODO just connect to first server discovered
-                        
-                        Console.WriteLine("Connection to missile launch system active. Launch key 1111111 accepted successfully");
-                        //interpreter.Prompt();
-                        break;
 
-                    case NetIncomingMessageType.Data:
-                        // TODO receive game map
-                        
-                        // write responseString to XNAConsole
-                        Console.WriteLine(responseString);
-                        //interpreter.Prompt();
-                        break;
+                while ((msg = client.ReadMessage()) != null)
+                {
+                    switch (msg.MessageType)
+                    {
+                        case NetIncomingMessageType.DiscoveryResponse:
+                            // TODO just connect to first server discovered
+
+                            Console.WriteLine("Connection to missile launch system active. Launch key 1111111 accepted successfully");
+                            //interpreter.Prompt();
+                            break;
+
+                        case NetIncomingMessageType.Data:
+                            // TODO receive game map
+                            String responseString = "default response";
+
+                            // write responseString to XNAConsole
+                            Console.WriteLine(responseString);
+                            //interpreter.Prompt();
+                            break;
+                    }
                 }
             }
 
@@ -125,7 +130,10 @@ namespace Sept1983Client
 
         protected override void OnExiting(object sender, EventArgs args)
         {
-            client.Shutdown("bye");
+            if(client != null) {
+                client.Shutdown("bye");
+            }
+        
             base.OnExiting(sender, args);
         }
 

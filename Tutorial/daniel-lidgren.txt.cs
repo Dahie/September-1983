@@ -1,9 +1,6 @@
 GameClient:
 ***********
 
-global:
-
-        NetClient client; // Managing Communication with Server
 
 Konstruktor:
 

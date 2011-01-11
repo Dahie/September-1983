@@ -46,106 +46,112 @@ namespace Sept1983Server
 
 		   // TODO initiate Server
             // server listens to port
-
+            NetPeerConfiguration config = null;
+            NetServer server = null;
 
             try 
             {
               // TODO start server
-
+             
 
 			// schedule initial sending of position updates
 			double nextSendUpdates = NetTime.Now;
 
-			// run until escape is pressed
-			//while (!Console.KeyAvailable || Console.ReadKey().Key != ConsoleKey.Escape)
-            while (true)
 
+            while (true)
             {
 				NetIncomingMessage msg;
-				while ((msg = server.ReadMessage()) != null)
-				{
-					switch (msg.MessageType)
-					{
-						case NetIncomingMessageType.DiscoveryRequest:
-							// Server received a discovery request from a client; send a discovery response (with no extra data attached)
-							server.SendDiscoveryResponse(null, msg.SenderEndpoint);
-							break;
-						case NetIncomingMessageType.VerboseDebugMessage:
-						case NetIncomingMessageType.DebugMessage:
-						case NetIncomingMessageType.WarningMessage:
-						case NetIncomingMessageType.ErrorMessage:
-							// Just print diagnostic messages to console
-							Console.WriteLine(msg.ReadString());
-							break;
-						case NetIncomingMessageType.StatusChanged:
-							NetConnectionStatus status = (NetConnectionStatus)msg.ReadByte();
-							if (status == NetConnectionStatus.Connected)
-							{
-								// A new player just connected!
-								Console.WriteLine(NetUtility.ToHexString(msg.SenderConnection.RemoteUniqueIdentifier) + " connected!");
-
-                                // create new player object
-                                // initialize new game
-
-                                //playerServer.startGame();
-                                //playerHuman.startGame();
-
-							}
-
-							break;
-						case NetIncomingMessageType.Data:
-
-                            String responseString = "Nothing happend";
-
-                            // player round
-
-							// The client sent input to the server
-							
-                            String sequenceName = msg.ReadString();
-
-                            int round = msg.ReadInt32();
-                            if (round > currentRound)
-                            {
-                                currentRound = round;
-
-                                if (sequences.Contains(sequenceName))
+                if (server != null)
+                {
+                    while ((msg = server.ReadMessage()) != null)
+                    {
+                        switch (msg.MessageType)
+                        {
+                            case NetIncomingMessageType.DiscoveryRequest:
+                                // Server received a discovery request from a client; send a discovery response (with no extra data attached)
+                                server.SendDiscoveryResponse(null, msg.SenderEndpoint);
+                                break;
+                            case NetIncomingMessageType.VerboseDebugMessage:
+                            case NetIncomingMessageType.DebugMessage:
+                            case NetIncomingMessageType.WarningMessage:
+                            case NetIncomingMessageType.ErrorMessage:
+                                // Just print diagnostic messages to console
+                                Console.WriteLine(msg.ReadString());
+                                break;
+                            case NetIncomingMessageType.StatusChanged:
+                                NetConnectionStatus status = (NetConnectionStatus)msg.ReadByte();
+                                if (status == NetConnectionStatus.Connected)
                                 {
-                                
-                                // choose and fire sequence
+                                    // A new player just connected!
+                                    Console.WriteLine(NetUtility.ToHexString(msg.SenderConnection.RemoteUniqueIdentifier) + " connected!");
 
-                                var executer = new SequenceExecuter(playerServer.map);
-                                var resultMessagePlayer = executer.LoadScript(sequenceName);
+                                    // create new player object
+                                    // initialize new game
 
+                                    //playerServer.startGame();
+                                    //playerHuman.startGame();
 
-                                // switch round to npc
-
-                                // fire random sequence
-                                int randomIndex = RandomNumber(0, sequences.Count);
-                                sequenceName = (String)sequences[randomIndex];
-                                executer = new SequenceExecuter(playerHuman.map);
-                                var resultMessageNPC = executer.LoadScript(sequenceName);
-
-                                // send response to client
-
-                                
-                                String battlefield = Battlefield.Draw(playerHuman, playerServer);
-                                responseString = "Player: " + resultMessagePlayer + "\n" + battlefield + " \nComputer: " + resultMessageNPC;
-                                } else {
-                                    responseString = "FireSequence not recognized!";
                                 }
-                            } else {
-                                responseString = "Game round invalid";
-                            }
 
-						// TODO server response implementation
+                                break;
+                            case NetIncomingMessageType.Data:
+
+                                String responseString = "Nothing happend";
+
+                                // player round
+
+                                // The client sent input to the server
+
+                                String sequenceName = msg.ReadString();
+
+                                int round = msg.ReadInt32();
+                                if (round > currentRound)
+                                {
+                                    currentRound = round;
+
+                                    if (sequences.Contains(sequenceName))
+                                    {
+
+                                        // choose and fire sequence
+
+                                        var executer = new SequenceExecuter(playerServer.map);
+                                        var resultMessagePlayer = executer.LoadScript(sequenceName);
+
+
+                                        // switch round to npc
+
+                                        // fire random sequence
+                                        int randomIndex = RandomNumber(0, sequences.Count);
+                                        sequenceName = (String)sequences[randomIndex];
+                                        executer = new SequenceExecuter(playerHuman.map);
+                                        var resultMessageNPC = executer.LoadScript(sequenceName);
+
+                                        // send response to client
+
+
+                                        String battlefield = Battlefield.Draw(playerHuman, playerServer);
+                                        responseString = "Player: " + resultMessagePlayer + "\n" + battlefield + " \nComputer: " + resultMessageNPC;
+                                    }
+                                    else
+                                    {
+                                        responseString = "FireSequence not recognized!";
+                                    }
+                                }
+                                else
+                                {
+                                    responseString = "Game round invalid";
+                                }
+
+                                // TODO server response implementation
 
 
 
 
-							break;
-					} // switch messageType
+                                break;
+                        } // switch messageType
 
-				} // while readMessage
+                    } // while readMessage
+                }
 
 				// sleep to allow other processes to run smoothly
 				Thread.Sleep(1);
