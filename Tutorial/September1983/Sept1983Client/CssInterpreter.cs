@@ -72,7 +72,7 @@ namespace Sept1983Client
         /// <param name="input"></param>
         private void Evaluate( string input )
         {
-
+            // add eval-code here
         }
 
         public void LoadScript(string className) 
